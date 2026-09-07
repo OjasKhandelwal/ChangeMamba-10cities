@@ -7,29 +7,20 @@ from .common import BaseChangeDataset
 
 
 class ChangeDetectionDataset(BaseChangeDataset):
-    def _transform(self, pre_img, post_img, label):
-        if self.is_train:
-            pre_img, post_img, label = imutils.random_crop_new(
-                pre_img, post_img, label, self.crop_size
-            )
-            pre_img, post_img, label = imutils.random_fliplr(
-                pre_img, post_img, label
-            )
-            pre_img, post_img, label = imutils.random_flipud(
-                pre_img, post_img, label
-            )
-            pre_img, post_img, label = imutils.random_rot(
-                pre_img, post_img, label
-            )
+    def transform(self, pre_img, post_img, label):
 
-        pre_img = imutils.to_channel_first(
-            imutils.normalize_img(pre_img)
-        )
-        post_img = imutils.to_channel_first(
-            imutils.normalize_img(post_img)
-        )
+    # No online augmentation.
+    # Augmentation has already been performed offline.
 
-        return pre_img, post_img, np.asarray(label)
+      pre_img = imutils.to_channel_first(
+        imutils.normalize_img(pre_img)
+    )
+
+      post_img = imutils.to_channel_first(
+        imutils.normalize_img(post_img)
+    )
+
+      return pre_img, post_img, np.asarray(label)
 
     def __getitem__(self, index):
         item_name = self.data_list[index]

@@ -127,18 +127,6 @@ def random_fliplr_bda(pre_img, post_img, label_1, label_2):
     return pre_img, post_img, label_1, label_2
 
 
-def random_fliplr_mcd(pre_img, post_img, label_cd, label_1, label_2):
-    if random.random() > 0.5:
-        return _random_apply(np.fliplr, pre_img, post_img, label_cd, label_1, label_2)
-    return pre_img, post_img, label_cd, label_1, label_2
-
-
-def random_flipud(pre_img, post_img, label):
-    if random.random() > 0.5:
-        return _random_apply(np.flipud, pre_img, post_img, label)
-    return pre_img, post_img, label
-
-
 def random_flipud_bda(pre_img, post_img, label_1, label_2):
     if random.random() > 0.5:
         return _random_apply(np.flipud, pre_img, post_img, label_1, label_2)
@@ -150,30 +138,12 @@ def random_flipud_mcd(pre_img, post_img, label_cd, label_1, label_2):
         return _random_apply(np.flipud, pre_img, post_img, label_cd, label_1, label_2)
     return pre_img, post_img, label_cd, label_1, label_2
 
-
-def random_rot(pre_img, post_img, label):
-    return _random_rotate(pre_img, post_img, label)
-
-
 def random_rot_bda(pre_img, post_img, label_1, label_2):
     return _random_rotate(pre_img, post_img, label_1, label_2)
 
 
 def random_rot_mcd(pre_img, post_img, label_cd, label_1, label_2):
     return _random_rotate(pre_img, post_img, label_cd, label_1, label_2)
-
-
-def random_crop(img, crop_size, mean_rgb=[0, 0, 0], ignore_index=255):
-    cropped_img, = random_crop_multi(
-        [img],
-        [np.zeros(img.shape[:2], dtype=np.float32)],
-        crop_size,
-        selection_label=0,
-        mean_rgb=mean_rgb,
-        ignore_index=ignore_index,
-    )
-    return cropped_img
-
 
 def random_bi_image_crop(pre_img, obj, crop_size, mean_rgb=[0, 0, 0], ignore_index=255):
     cropped_pre_img, cropped_obj = random_crop_multi(
